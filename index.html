@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scable=no,target-densitydpi=medium-dpi">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <title>Works 메일</title>
+</head>
+<body>
+<header>
+    <a href="#" class="logo_ico">
+        <img src="https://common.works.naver.com/gateway/image/view?path=/logo/20150117/33183/img_logo_ne_works_204124.png" alt="NHN Entertainmet">
+    </a>
+    <span class="logo_title">메일</span>
+    
+    <div class="service-list">
+        <a href="#" title="메일" class="mail"></a>
+        <a href="#" title="캘린더" class="calendar"></a>
+        <a href="#" title="주소록" class="address-book"></a>
+        <a href="#" title="n드라이브" class="ndrive"></a>
+        <a href="#" title="오피스" class="office"></a>
+        <a href="#" title="whatsup" class="whatsup"></a>
+    </div>        
+
+    <div class="user-info">
+        <div class="user-setting">
+            <a class="user">손창원</a><span> 님</span>
+            <em class="ic" id="emLogout">
+                <a href="https://auth.works.naver.com/logout?redirectUrl=https://mail.works.naver.com" title="로그아웃"></a>
+            </em>
+            <div class="user-setting-hide hover-visible">
+                <ul>
+                    <li><a href="#">개인정보 설정</a></li>
+                    <li><a href="#">사용 현황</a></li>
+                    <li><a href="#">부재중 설정</a></li>
+                </ul>
+            </div>
+        </div>
+        <span class="bar">|</span>
+        <a href="#">결재</a>
+        <span class="bar">|</span>
+        <a href="#">공유설비 </a>
+        <div class="staff_srch">
+            <input class="em-search" type="text" value="사원검색" />
+        </div>
+    </div>
+</header>
+<div class="container">
+    <aside class="nav">
+        <div class="compose-buttons">
+            <a class="compose">
+                <span><p class="">메일쓰기</p></span>
+            </a>
+            <a class="compose-scheduled">
+                <span><p class="">약속 메일쓰기</p></span>
+            </a>
+        </div>
+        <div class="shortcuts">
+            <div class="buttons">
+                <div class="read">
+                    <span class="count">0</span><a href="#">안읽음</a>
+                </div>
+                <div class="favorite">
+                    <span class="icon"></span><a href="#">중요</a>
+                </div>
+                <div class="attachment">
+                    <span class="icon"></span><a href="#">첨부</a>
+                </div>
+                <div class="to">
+                    <span class="icon"></span><a href="#">받는사람</a>
+                </div>
+            </div>
+        </div>
+        <div class="mailbox-nav">
+            <ul>
+                <li><span class="total">전체메일</span> <a class="btn">정리하기 <i class="new"></i></a></li>
+                <li><span class="receive">받은메일함</span></li>
+                <li><span class="to-me">내게쓴메일함</span> <a class="btn">내게쓰기</a></li>
+                <li><span class="sended">보낸메일함</span> <a class="btn">수신확인</a></li>
+                <li><span class="temp">임시보관함</span></li>
+            </ul>
+        </div>
+        <div class="mailbox-folder"> 
+            <span class="my">내 메일함</span>
+        </div>
+        <div class="mailbox-sub">
+            <ul>
+                <li><span class="spam">스팸메일함</span> <em class="number">999</em> <a class="icon icon-trash"></a></li>
+                <li><span class="trash">휴지통</span> <em class="number">500</em> <a class="icon icon-trash"></a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <section class="main">
+        
+        <div class="search-bar">
+            <div class="wrapper">
+                <a class="toggle-menu" href="#"><span class="arrow"><span class="blind">메일함 영역 접기/펴기 토글</span></span></a>
+                <div class="search">
+                    <label class="blind" for="keyword">메일검색어</label>
+                    <input name="keyword" id="keyword" class="search-box" type="text" placeholder="메일검색" /><input id="btn-search" class="btn search-button" type="button" /><a href="#" class="btn detail-button">상세<span class="arrow-down"></span></a>
+                </div>
+                <div class="status">
+                    <div class="mailbox">받은메일함 <p class="count"><span class="unread">0</span>/<span class="total">1753</span></p></div>
+                    <a class="delete-button">안읽은 메일 삭제</a>
+                </div>
+            </div>
+        </div>
+        <div class="menu">
+            <div class="menu-bar">
+                <span class="select"><input type="checkbox" /><span class="blind">전체 선택</span><span class="arrow-down"></span></span>
+                <button class="read" disabled>읽음</button>
+                <button class="delete" disabled><span class="icon"></span>삭제</button>
+                <button class="spam" disabled>스팸신고</button>
+                <button class="reply" disabled>답장</button><button class="reply-all" disabled>전체답장</button><button class="forward" disabled>전달</button>
+                <button class="move" disabled>이동<span class="arrow-down"></span></button>
+                <button class="clean" disabled>정리하기</button>
+                <button class="send" disabled><span class="icon"></span><span class="blind">보내기</span></button>
+                <button class="addon" disabled>추가기능<span class="arrow-down"></span></button>
+                <button class="filter" disabled>필터<span class="arrow-down"></span></button>
+
+            </div>
+            <div class="layoutSelect">          
+                <a title="인쇄" href="#" class="printAtList">
+                    <span class="spr l8">
+                        <span class="blind">선택된 메일을 인쇄</span>
+                    </span>
+                </a>
+                <a title="새로고침" href="#" class="std_aln refreshAtList">
+                    <span class="spr l7">
+                </a>
+                <a title="메일 목록 보기" class="btn_change_type" style="display: inline;">
+                    <span class="spr">
+                </a>
+                <a title="목록/본문 보기" class="btn_change_layout">
+                    <span class="spr">
+                </a>
+            </div>
+        </div>
+        <div class="mail list_horizontal nav_endless">
+            <div class="mailList">
+            <div id="list_for_view" class="listWrap">
+                <ol>
+                    <li class="li_h unmark selected context_hover">
+                        <ul class="mInfo">
+                            <li>
+                                <input id="mailCheck_11326" type="checkbox" class="mCheck">
+                                <label for="mailCheck_11326" class="blind">"신청해주신 교육과정이 입과대기 상태입니다." 메일 선택</label>
+                            </li>
+                            <li class="important">
+                                <a href="#" ><span class="spr icoImportant icoImportantOff">&nbsp;</span></a>
+                            </li>
+                            <li class="read">
+                                <span class="spr icoRead yes" title="읽은 메일">&nbsp;</span>
+                            </li>
+                            <li class="file">
+                                <span class="spr" style="cursor:default;" title=""></span>
+                            </li>
+                        </ul>
+                        <div class="mTitle">
+                            <div class="name sender_h">
+                                <a title="&quot;러닝센터운영자&quot; <jungwoon.lee@nhnent.com>" href="#">러닝센터운영자</a>
+                            </div>
+                            <div class="subject subject_h">
+                                <a href="/read/popup/?nMailId=11326" class="_d2(mcDragndrop|html5DragStart)" draggable="true">
+                                <span class="folder">[받은메일함]</span>
+                                <span class="text">
+                                    <span class="folderName">
+                                    <strong class="mail_title"> 신청해주신 교육과정이 입과대기 상태입니다.</strong>
+                                    </span>
+                                </a>
+                                <a href="#" class="icon_previewMail" title="메일 내용 미리보기">
+                                <a href="#" class="newWindow" title="새창으로 메일 보기">
+                                <span class="spr"></span>
+                                </a>
+                                </a>
+                            </div>
+                            <div class="mail-time">
+                                <span class="iDate">11:30:01</span>
+                                <br>
+                                <span class="iSize">4.9 KB</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="li_h unmark selected context_hover">
+                        <ul class="mInfo">
+                            <li>
+                                <input id="mailCheck_11326" type="checkbox" class="mCheck">
+                                <label for="mailCheck_11326" class="blind">"신청해주신 교육과정이 입과대기 상태입니다." 메일 선택</label>
+                            </li>
+                            <li class="important">
+                                <a href="#" ><span class="spr icoImportant icoImportantOff">&nbsp;</span></a>
+                            </li>
+                            <li class="read">
+                                <span class="spr icoRead yes" title="읽은 메일">&nbsp;</span>
+                            </li>
+                            <li class="file">
+                                <span class="spr" style="cursor:default;" title=""></span>
+                            </li>
+                        </ul>
+                        <div class="mTitle">
+                            <div class="name sender_h">
+                                <a title="&quot;러닝센터운영자&quot; <jungwoon.lee@nhnent.com>" href="#">두레이운영자</a>
+                            </div>
+                            <div class="subject subject_h">
+                                <a href="/read/popup/?nMailId=11326" class="_d2(mcDragndrop|html5DragStart)" draggable="true">
+                                <span class="folder">[받은메일함]</span>
+                                <span class="text">
+                                    <span class="folderName">
+                                    <strong class="mail_title"> 메일 html 마크업 연습 중</strong>
+                                    </span>
+                                </a>
+                                <a href="#" class="icon_previewMail" title="메일 내용 미리보기">
+                                <a href="#" class="newWindow" title="새창으로 메일 보기">
+                                <span class="spr"></span>
+                                </a>
+                                </a>
+                            </div>
+                            <div class="mail-time">
+                                <span class="iDate">11:30:01</span>
+                                <br>
+                                <span class="iSize">4.9 KB</span>
+                            </div>
+                        </div>
+                    </li>
+                </ol>    
+            </div>
+
+            <div class="list_autoload">
+                <p class="al_msg"><button>다음 목록<span class="bu_next"></span></button>
+                </p>
+            </div>
+
+            </div>
+            <div class="divContent">
+                <div class="xBar"></div>
+                <div class="viewWrap" id="previewContent">
+                    <div class="subMsg2"><strong>
+                    다음 설정을 통하여 편리하게 메일을 이용해 보세요!</strong>
+                    <ul>
+                        <li>
+                            분할모드 첫화면 첫번째 메일 자동 보기 설정을 할 수 있습니다.
+                            <a href="#"> 환경설정 보기</a>
+                        </li>
+                        <li>
+                            메일삭제/이동 후 자동으로 다음/이전 메일로 이동할 수 있습니다.
+                            <a href="#"> 환경설정 보기</a>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section> 
+</div>
+
+
+<footer>
+    <div class="footer-setting">
+        <span>용량 <a href="#" class="green-font">1.34GB</a> / 100GB</span>
+        <span class="bar">|</span>
+        <span><a href="#">환경설정</a></span>
+        <span class="bar">|</span>
+        <span class="ico_skin"></span>
+        <span><a href="#">스킨설정</a></span>
+        <span class="bar">|</span>
+        <span><a href="#">위젯사용하기</a></span>
+        <span class="new-ico"></span>
+        <span class="bar">|</span>
+        <span><a href="#">단축키</a></span>
+    </div>
+        
+    <div class="footer-copy">
+        <span>Copyright &copy; </span>
+        <a href="#" class="naver">NAVER Corp.</a>
+        <span>All Rights Reserved.</span> 
+    </div>
+    
+    <div class="footer-etc">
+        <a href="#">What's new?</a>
+        <span class="new-ico"></span>
+        <span class="bar">|</span>
+        <span><a href="#">공지사항</a></span>
+        <span class="bar">|</span>
+        <span><a href="#">Works 고객센터</a></span>
+        <span class="bar">|</span>
+        <span><a href="#">문의하기</a></span>
+    </div>
+</footer>
+
+</body>
+</html>
